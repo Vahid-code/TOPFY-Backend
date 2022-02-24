@@ -4,6 +4,6 @@ namespace DomainModels.Dtos
 {
     public class RequestTagDto
     {
-        public ICollection<ParentChildrenTagDto> Tags { get; set; } = new List<ParentChildrenTagDto>();
+        public IList<ParentChildrenTagDto> Tags { get; set; } = new List<ParentChildrenTagDto>();
     }
 }

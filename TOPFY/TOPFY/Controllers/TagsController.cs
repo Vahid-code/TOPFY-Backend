@@ -29,7 +29,7 @@ namespace TOPFY.Controllers
             foreach (Tag tag in popularTags)
             {
                 ICollection<Tag> childTags = await _unitOfWork.Tags
-                    .FindAsync(t => t.ParentTag == tag&&!t.IsDeleted);
+                    .FindAllAsync(t => t.ParentTag == tag&&!t.IsDeleted);
                 dto.Tags.Add(new ParentChildrenTagDto { ParentTag = _mapper.Map<TagDto>(tag),
                     ChildrenTags = _mapper.Map<ICollection<TagDto>>(childTags)});
             }

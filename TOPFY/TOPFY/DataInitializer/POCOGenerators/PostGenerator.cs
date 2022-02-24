@@ -90,13 +90,6 @@ namespace TOPFY.DataInitializer.POCOGenerators
                 User = nihad,
                 MainTagId = travellingTag.Id,
                 Description = "Dummy Description",
-                MainImage = "travelling"
-            },
-            new Post
-            {
-                User = nihad,
-                MainTagId = travellingTag.Id,
-                Description = "Dummy Description",
                 MainImage = "travelling2"
             },
             new Post
