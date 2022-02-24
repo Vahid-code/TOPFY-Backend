@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DomainModels.Dtos.TagDtos;
+using DomainModels.Models;
 
 namespace Repository.Mapper
 {
@@ -6,7 +8,7 @@ namespace Repository.Mapper
     {
         public MapperProfile()
         {
-           
+            CreateMap<Tag, TagDto>().ReverseMap();
         }
     }
 }
