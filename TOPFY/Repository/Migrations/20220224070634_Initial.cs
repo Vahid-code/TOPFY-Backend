@@ -55,9 +55,10 @@ namespace Repository.Migrations
                 name: "Tags",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentTagId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ParentTagId = table.Column<int>(type: "int", nullable: true),
                     PostCount = table.Column<int>(type: "int", nullable: false),
                     IsPopular = table.Column<bool>(type: "bit", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -185,7 +186,8 @@ namespace Repository.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     MainImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -209,7 +211,8 @@ namespace Repository.Migrations
                 name: "UserConnections",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     FollowerIdId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -237,7 +240,7 @@ namespace Repository.Migrations
                 name: "TagUser",
                 columns: table => new
                 {
-                    TagsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TagsId = table.Column<int>(type: "int", nullable: false),
                     UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -261,8 +264,8 @@ namespace Repository.Migrations
                 name: "PostTag",
                 columns: table => new
                 {
-                    PostsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SpecificTagsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    PostsId = table.Column<int>(type: "int", nullable: false),
+                    SpecificTagsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

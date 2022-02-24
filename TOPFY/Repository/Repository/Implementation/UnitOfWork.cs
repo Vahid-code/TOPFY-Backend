@@ -20,12 +20,15 @@ namespace Repository.Services.Implementation
         {
             _context = context;
             _logger = loggerFactory.CreateLogger("logs");
-            Posts = new PostRepository(_context,_logger);
-            Tags = new TagRepository(_context,_logger);
-            UserConnections = new UserConnectionRepository(_context, _logger);
+            Posts = new PostRepository(context, _logger);
+            Tags = new TagRepository(context, _logger);
+            UserConnections = new UserConnectionRepository(context, _logger);
+        }
+        public async Task CompleteAsync()
+        {
+           await _context.SaveChangesAsync();
         }
 
-        public async Task CompleteAsync()=>await _context.SaveChangesAsync();
         public void Dispose() => _context.Dispose();
     }
 }

@@ -8,7 +8,7 @@ namespace DomainModels.Models
         public string MainImage { get; set; }
         public string Description { get; set; }
         public User User { get; set; }
-        public string MainTagId { get; set; }
+        public int MainTagId { get; set; }
         public ICollection<Tag> SpecificTags { get; set; }
     }
 }
