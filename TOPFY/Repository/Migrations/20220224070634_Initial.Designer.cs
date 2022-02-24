@@ -10,7 +10,7 @@ using Repository.DAL;
 namespace Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220223160000_Initial")]
+    [Migration("20220224070634_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,8 +23,10 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("DomainModels.Models.Post", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -56,8 +58,10 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("DomainModels.Models.Tag", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -71,8 +75,8 @@ namespace Repository.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ParentTagId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("ParentTagId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PostCount")
                         .HasColumnType("int");
@@ -169,8 +173,10 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("DomainModels.Models.UserConnection", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -329,11 +335,11 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("PostTag", b =>
                 {
-                    b.Property<string>("PostsId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("PostsId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SpecificTagsId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("SpecificTagsId")
+                        .HasColumnType("int");
 
                     b.HasKey("PostsId", "SpecificTagsId");
 
@@ -344,8 +350,8 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("TagUser", b =>
                 {
-                    b.Property<string>("TagsId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UsersId")
                         .HasColumnType("nvarchar(450)");

@@ -85,8 +85,8 @@ namespace TOPFY
             }
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.Seed();
             app.UseAuthentication();
+            app.Seed();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

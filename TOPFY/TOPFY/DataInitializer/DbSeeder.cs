@@ -23,26 +23,27 @@ namespace TOPFY.DataInitializer
             _context = context;
             _userManager = userManager;
         }
-        public  async Task InitializeSeeder() 
+        public async Task InitializeSeeder() 
         {
             _context.Database.Migrate();
-            if(await _unitOfWork.Tags.AnyAsync())
+            if(!await _unitOfWork.Tags.AnyAsync())
             {
                 await TagGenerator.GenerateTagsAsync(_unitOfWork);
             }
-            if (await _unitOfWork.Posts.AnyAsync())
+            if (!await _userManager.Users.AnyAsync())
             {
-                await PostGenerator.GeneratePostsAsync(_unitOfWork);
+                await UserGenerator.GenerateUsersAsync(_userManager,_unitOfWork);
             }
-            if (await _unitOfWork.UserConnections.AnyAsync())
+            if (!await _unitOfWork.Posts.AnyAsync())
+            {
+                await PostGenerator.GeneratePostsAsync(_unitOfWork,_userManager);
+            }
+            if (!await _unitOfWork.UserConnections.AnyAsync())
             {
                 await UserConnectionGenerator.GenerateUserConnectionsAsync(_unitOfWork);
             }
-            if (await _unitOfWork.UserConnections.AnyAsync())
-            {
-                await UserGenerator.GenerateUsersAsync(_userManager);
-            }
             await _unitOfWork.CompleteAsync();
+            
         }
     }
 }
