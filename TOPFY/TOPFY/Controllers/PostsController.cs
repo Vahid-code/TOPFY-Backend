@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DomainModels.Dtos;
 using DomainModels.Dtos.PostDtos;
 using DomainModels.Dtos.TagDtos;
 using DomainModels.Models;
@@ -28,30 +28,22 @@ namespace TOPFY.Controllers
         public async Task<IActionResult> GetPosts([FromBody] JObject json, [FromQuery] int count)
         {
             List<TagDto> listOfTags = JsonConvert
-                .DeserializeObject<List<TagDto>>(json["list"].ToString());
+                .DeserializeObject<List<TagDto>>(json["tags"].ToString());
+            int currentPage = JsonConvert
+                .DeserializeObject<int>(json["currentPage"].ToString());
             List<Post> posts = new();
             foreach (TagDto tag in listOfTags)
             {
-                posts.AddRange(
-                    (await _unitOfWork.Posts.GetAllPostsWithUsersAndTags
+                List<Post> temp = (await _unitOfWork.Posts.GetAllPostsWithUsersAndTags
                     (p => !p.IsDeleted && p.MainTagId == tag.Id ||
-                    p.SpecificTags.Any(t => t.Id == tag.Id)))
-                    );
-            }
-            int i = 0;
-            List<Post> postsToSend = new();
-            while (i < count)
-            {
-                Random r = new();
-                int num = r.Next(0, posts.Count);
-                Post post = posts[num];
-                if (!postsToSend.Any(p => p == post))
+                    p.SpecificTags.Any(t => t.Id == tag.Id))).ToList();
+                if (temp.Count != 0)
                 {
-                    postsToSend.Add(post);
-                    i++;
+                    posts.AddRange(temp);
                 }
             }
-            return Ok(_mapper.Map<IList<PostDto>>(postsToSend));
+            ExplorerPageDto dto = new(currentPage, count,_mapper.Map<List<PostDto>>(posts),listOfTags);
+            return Ok(dto);
         }
     }
 }
