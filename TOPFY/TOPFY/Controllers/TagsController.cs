@@ -21,16 +21,16 @@ namespace TOPFY.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetPopularTags()
+        [HttpPost]
+        public async Task<IActionResult> GetPopularTags([FromQuery]int count)
         {
-            IEnumerable<Tag> popularTags = await _unitOfWork.Tags.GetPopularTags(10);
+            IEnumerable<Tag> popularTags = await _unitOfWork.Tags.GetPopularTags(count);
             RequestTagDto dto = new();
             foreach (Tag tag in popularTags)
             {
                 ICollection<Tag> childTags = await _unitOfWork.Tags
-                    .FindAsync(t => t.ParentTag == tag&&!t.IsDeleted);
-                dto.Tags.Add(new ParentChildrenTagDto { ParentTag = _mapper.Map<TagDto>(tag),
+                    .FindAllAsync(t => t.ParentTag == tag&&!t.IsDeleted);
+                dto.Tags.Add(new ParentChildrenTagDto { ParentTagId=tag.Id,ParentTagName=tag.Name,
                     ChildrenTags = _mapper.Map<ICollection<TagDto>>(childTags)});
             }
             return Ok(dto);

@@ -100,7 +100,7 @@ namespace Repository.Services.Implementation
             return false;
         }
 
-        public virtual async Task<ICollection<T>> FindAsync(Expression<Func<T, bool>> predicate
+        public virtual async Task<IList<T>> FindAllAsync(Expression<Func<T, bool>> predicate
             ,IList<string> includingItems=null)
         {
             if (includingItems != null)

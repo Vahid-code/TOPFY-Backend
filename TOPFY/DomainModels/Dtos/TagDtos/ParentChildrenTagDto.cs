@@ -6,7 +6,8 @@ namespace DomainModels.Dtos
 {
    public class ParentChildrenTagDto
     {
-        public TagDto ParentTag { get; set; }
+        public int ParentTagId { get; set; }
+        public string ParentTagName { get; set; }
         public ICollection<TagDto> ChildrenTags { get; set; }
     }
 }

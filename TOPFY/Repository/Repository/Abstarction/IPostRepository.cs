@@ -8,6 +8,6 @@ namespace Repository.Repository.Abstarction
 {
    public interface IPostRepository:IGenericRepository<Post>
     {
-       
+        public Task<IList<Post>> GetAllPostsWithUsersAndTags(Expression<Func<Post,bool>>expression);
     }
 }

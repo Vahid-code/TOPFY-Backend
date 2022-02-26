@@ -18,6 +18,7 @@ using System;
 using System.Text;
 using Repository.DAL.DataInitializer;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace TOPFY
 {
@@ -32,7 +33,9 @@ namespace TOPFY
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options=> {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             services.AddDbContext<AppDbContext>(options=> {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"),builder=> {
                     builder.MigrationsAssembly(nameof(Repository));
