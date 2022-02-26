@@ -15,6 +15,6 @@ namespace Repository.Services.Abstarction
         bool Update(T entity);
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression=null);
-        Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate,IList<string>includingItems);
+        Task<IList<T>> FindAllAsync(Expression<Func<T, bool>> predicate,IList<string>includingItems=null);
     }
 }
